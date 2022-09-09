@@ -3,32 +3,32 @@ package vvvx
 /* Copyright © 2022 sparksb -- MIT (see LICENSE file) */
 
 import (
-	"fmt"
-	"github.com/briancsparks/activedevelopment/ad"
+  "github.com/briancsparks/activedevelopment/ad"
+  "log"
 )
 
-func Printf(format string, a ...any) (int, error) {
+func Printf(format string, a ...any) {
 	if !shouldVvvx() {
-		return 0, nil
+		return
 	}
 
-	return fmt.Printf(format, a...)
+  log.Printf(format, a...)
 }
 
-func Print(a ...any) (int, error) {
+func Print(a ...any) {
 	if !shouldVvvx() {
-		return 0, nil
+		return
 	}
 
-	return fmt.Print(a...)
+  log.Print(a...)
 }
 
-func Println(a ...any) (int, error) {
+func Println(a ...any) {
 	if !shouldVvvx() {
-		return 0, nil
+		return
 	}
 
-	return fmt.Println(a...)
+  log.Println(a...)
 }
 
 func shouldVvvx() bool {

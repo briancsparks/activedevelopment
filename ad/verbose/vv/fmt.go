@@ -3,8 +3,8 @@ package vv
 /* Copyright © 2022 sparksb -- MIT (see LICENSE file) */
 
 import (
-	"fmt"
-	"github.com/briancsparks/activedevelopment/ad"
+  "github.com/briancsparks/activedevelopment/ad"
+  "log"
 )
 
 func Printf(format string, a ...any) {
@@ -12,23 +12,23 @@ func Printf(format string, a ...any) {
 		return
 	}
 
-	fmt.Printf(format, a...)
+	log.Printf(format, a...)
 }
 
-func Print(a ...any) (n int, err error) {
+func Print(a ...any) {
 	if !shouldVv() {
-		return 0, nil
+		return
 	}
 
-	return fmt.Print(a...)
+	log.Print(a...)
 }
 
-func Println(a ...any) (n int, err error) {
+func Println(a ...any) {
 	if !shouldVv() {
-		return 0, nil
+		return
 	}
 
-	return fmt.Println(a...)
+	 log.Println(a...)
 }
 
 func shouldVv() bool {

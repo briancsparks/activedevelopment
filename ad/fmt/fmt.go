@@ -6,17 +6,17 @@ import (
   "fmt"
 )
 
-func Printf(format string, a ...any) (n int, err error) {
+func Printf(format string, a ...any) {
   //return 0, nil
-  return fmt.Printf(format, a...)
+  fmt.Printf(format, a...)
 }
 
-func Print(a ...any) (n int, err error) {
-  return fmt.Print(a...)
+func Print(a ...any) {
+  fmt.Print(a...)
 }
 
-func Println(a ...any) (n int, err error) {
-  return fmt.Println(a...)
+func Println(a ...any) {
+  fmt.Println(a...)
 }
 
 
