@@ -32,5 +32,5 @@ func Println(a ...any) {
 }
 
 func shouldDebug() bool {
-	return ad.ConfigVerbosity() >= 1
+	return ad.TheConfig.Verbosity() >= 1
 }

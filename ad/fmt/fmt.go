@@ -4,6 +4,7 @@ package afmt
 
 import (
   "fmt"
+  "log"
 )
 
 func Printf(format string, a ...any) {
@@ -19,4 +20,7 @@ func Println(a ...any) {
   fmt.Println(a...)
 }
 
+func PrintVal(a any, format string) {
+  log.Printf(format, a)
+}
 

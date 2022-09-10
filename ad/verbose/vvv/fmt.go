@@ -31,6 +31,14 @@ func Println(a ...any)  {
   log.Println(a...)
 }
 
+func PrintVal(a any, format string) {
+  if !shouldVvv() {
+    return
+  }
+
+  log.Printf(format, a)
+}
+
 func shouldVvv() bool {
-	return ad.ConfigVerbosity() >= 3
+	return ad.TheConfig.Verbosity() >= 3
 }

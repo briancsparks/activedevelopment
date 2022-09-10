@@ -18,31 +18,80 @@ type Config struct {
 
 // -------------------------------------------------------------------------------------------------------------------
 
-func MakeConfig() *Config {
+func NewConfig() *Config {
   config := Config{}
 
-  config.IsActiveDevelopment = true
-
-  // Release
-  config.IsShowDebug = false
-  config.VerbosityLevel = 0
-  config.IsDoX = false
-  config.IsLogApis = false
-
-  if !config.IsActiveDevelopment {
-    // Debug / ActiveDevelopment
-    config.IsShowDebug = true
-    config.VerbosityLevel = 1
-    config.IsDoX = true
-    config.IsLogApis = true
-  }
+  //config.IsActiveDevelopment = true
+  //
+  //// Release
+  //config.IsShowDebug = false
+  //config.VerbosityLevel = 0
+  //config.IsDoX = false
+  //config.IsLogApis = false
+  //
+  //if !config.IsActiveDevelopment {
+  //  // Debug / ActiveDevelopment
+  //  config.IsShowDebug = true
+  //  config.VerbosityLevel = 1
+  //  config.IsDoX = true
+  //  config.IsLogApis = true
+  //}
 
   config.FeatureFlags  = make(map[string]struct{}, 1)
   config.FeatureTags   = make(map[string]string, 1)
   config.FeatureTagsEx = make(map[string]interface{}, 1)
 
+  config.SetReleaseMode()
+
   return &config
 }
+
+// -------------------------------------------------------------------------------------------------------------------
+
+func (c *Config) SetReleaseMode() {
+  c.SetActiveD(false)
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+func (c *Config) SetActiveD(isAD bool) {
+  c.IsActiveDevelopment = isAD
+
+  if !c.IsActiveDevelopment {
+    // Release
+    c.IsShowDebug = false
+    c.VerbosityLevel = 0
+    c.IsDoX = false
+    c.IsLogApis = false
+
+  } else {
+    // Debug / ActiveDevelopment
+    c.IsShowDebug = true
+    c.VerbosityLevel = 1
+    c.IsDoX = true
+    c.IsLogApis = true
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+func (c *Config) SetVerbosity(level int) {
+  c.VerbosityLevel = level
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+func (c *Config) SetDoX(isDOX bool) {
+  c.IsDoX = isDOX
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+func (c *Config) SetLogApis(isLogApis bool) {
+  c.IsLogApis = isLogApis
+}
+
+
 
 // -------------------------------------------------------------------------------------------------------------------
 
@@ -78,6 +127,12 @@ func (c *Config) Verbosity() int {
 
 func (c *Config) DoX() bool {
   return TheConfig.IsDoX
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+func (c *Config) LogApis() bool {
+  return TheConfig.IsLogApis
 }
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -125,7 +180,7 @@ func (c *Config) OnFeatureFlag(flag string, fn func() error) error {
 var TheConfig *Config
 
 func init() {
-  TheConfig = MakeConfig()
+  TheConfig = NewConfig()
 	//TheConfig = &Config{}
   //
 	//TheConfig.IsActiveDevelopment = true
@@ -179,6 +234,12 @@ func Verbosity() int {
 
 func DoX() bool {
 	return TheConfig.DoX()
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+func LogApis() bool {
+  return TheConfig.LogApis()
 }
 
 // -------------------------------------------------------------------------------------------------------------------

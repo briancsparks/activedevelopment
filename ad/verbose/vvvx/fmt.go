@@ -31,6 +31,15 @@ func Println(a ...any) {
   log.Println(a...)
 }
 
-func shouldVvvx() bool {
-	return (ad.ConfigVerbosity() >= 3) && ad.DoX()
+func PrintVal(a any, format string) {
+  if !shouldVvvx() {
+    return
+  }
+
+  log.Printf(format, a)
 }
+
+func shouldVvvx() bool {
+	return (ad.TheConfig.Verbosity() >= 3) && ad.DoX()
+}
+
