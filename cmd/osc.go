@@ -49,17 +49,23 @@ func runOsc() {
     fmt.Println("var1:", var1, ok)
     message := osc.NewMessage(var1name)
     message.Append(int32(var1))
-    ad.App.Feedback(message)
+    _= ad.App.Feedback(message)
   })
   if err != nil {
     log.Fatal(err)
   }
 
-  ad.App.RegisterDefaultHandler(func(msg *osc.Message) {
+  _, err = ad.App.RegisterDefaultHandler(func(msg *osc.Message) {
     fmt.Println(msg)
   })
+  if err != nil {
+    log.Fatal(err)
+  }
 
   fmt.Println("Listening...")
-  ad.App.StartBlocking("127.0.0.1", 54321)
+  err = ad.App.StartBlocking("127.0.0.1", 54321)
+  if err != nil {
+    log.Fatal(err)
+  }
 
 }
